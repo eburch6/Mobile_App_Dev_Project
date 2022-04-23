@@ -1,3 +1,4 @@
+import 'package:final_project/home.dart';
 import 'package:final_project/post_recipes.dart';
 import 'package:final_project/signup.dart';
 import 'package:flutter/material.dart';
@@ -89,7 +90,7 @@ class login extends StatelessWidget {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => postRecipes(recipes: "recipes")));
+            builder: (context) => Home()));
   }
 
   // void _profile(context) async{
