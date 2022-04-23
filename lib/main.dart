@@ -5,6 +5,7 @@ import 'package:final_project/upload_image.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
+import 'display_post.dart';
 import 'login.dart';
 
 void main() async {
