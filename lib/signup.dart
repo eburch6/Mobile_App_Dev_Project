@@ -92,8 +92,6 @@ class SignUpPage extends StatelessWidget {
                             MaterialPageRoute(builder: (context) => login()));
                       },
                       child: const Text("Login")),
-                  TextButton(
-                      onPressed: () {}, child: const Text("Log in with Google")),
                 ],
               )),
         ));

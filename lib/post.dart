@@ -16,14 +16,23 @@ class Post {
     required this.time_created,
   });
 
-  Post.fromJson(String id, Map<String, dynamic> json)
+  // Post.fromJson(String id, Map<String, dynamic> json)
+  //     : this(
+  //         id: id,
+  //         username: json["username"],
+  //         post: json["post"],
+  //         image: json["image"],
+  //         time_created: json["time_created"],
+  //       );
+
+  Post.fromJson(Map<String, dynamic> json)
       : this(
-          // id: id,
-          username: json["username"],
-          post: json["post"],
-          image: json["image"],
-          time_created: json["time_created"],
-        );
+    // id: id,
+    username: json["username"],
+    post: json["post"],
+    image: json["image"],
+    time_created: json["time_created"],
+  );
 
   Map<String, dynamic> toJson() {
     return {

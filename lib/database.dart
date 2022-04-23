@@ -14,15 +14,15 @@ class DatabaseService {
   final StreamController<List<User>> _userListController =
   StreamController<List<User>>();
 
-  final StreamController<Post> _postController = StreamController<Post>();
+  // final StreamController<Post> _postController = StreamController<Post>();
 
   Stream<Map<String, User>> get users => _usersController.stream;
   Stream<List<User>> get userList => _userListController.stream;
-  Stream<Post> get post => _postController.stream;
+  // Stream<Post> get post => _postController.stream;
 
   DatabaseService() {
     _firestore.collection('users').snapshots().listen(_usersUpdated);
-    _firestore.collection('post').doc("").snapshots().listen(_postUpdated);
+    // _firestore.collection('post').doc("").snapshots().listen(_postUpdated);
   }
 
   void _usersUpdated(QuerySnapshot<Map<String, dynamic>> snapshot) {
@@ -30,10 +30,10 @@ class DatabaseService {
     _usersController.add(users);
   }
 
-  void _postUpdated(DocumentSnapshot<Map<String, dynamic>> snapshot) {
-    var posts = _getPostFromSnapshot(snapshot);
-    _postController.add(posts);
-  }
+  // void _postUpdated(DocumentSnapshot<Map<String, dynamic>> snapshot) {
+  //   var posts = _getPostFromSnapshot(snapshot);
+  //   _postController.add(posts);
+  // }
 
   Map<String, User> _getUsersFromSnapshot(
       QuerySnapshot<Map<String, dynamic>> snapshot) {
