@@ -30,6 +30,19 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: const Color(0xff071930),
+        actions: <Widget>[
+          IconButton(
+              icon: const Icon(
+                Icons.add,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(builder:
+                    (BuildContext context) => postRecipes()));
+              })],
+      ),
       body: Stack(
         children: <Widget>[
           Container(
@@ -50,30 +63,6 @@ class _HomeState extends State<Home> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Row(
-                    mainAxisAlignment: kIsWeb
-                        ? MainAxisAlignment.start
-                        : MainAxisAlignment.center,
-                    children: const <Widget>[
-                      Text(
-                        "AppGuy",
-                        style: TextStyle(
-                            fontSize: 18,
-                            color: Colors.white,
-                            fontFamily: 'Overpass'),
-                      ),
-                      Text(
-                        "Recipes",
-                        style: TextStyle(
-                            fontSize: 18,
-                            color: Colors.blue,
-                            fontFamily: 'Overpass'),
-                      )
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 60,
-                  ),
                   const Text(
                     "What will you cook today?",
                     style: TextStyle(
@@ -194,7 +183,42 @@ class _HomeState extends State<Home> {
                                 imgUrl: recipies[index].image,
                                 desc: recipies[index].source,
                                 url: recipies[index].url,
-                              ));
+                              ),
+                              footer: GridTileBar(
+                                backgroundColor: Colors.white,
+                                title: Row(
+                                  children: const [
+                                    Icon(
+                                      Icons.favorite_outline,
+                                      color: Colors.grey,
+                                      // product.isFavorite ? Icons.favorite : Icons.favorite_border,
+                                    ),
+                                    // trailing: IconButton(
+                                    //     icon: Icon(
+                                    //       Icons.sentiment_satisfied_alt,
+                                    //       color: Colors.white,
+                                    //     ),
+                                    //     onPressed: () {
+                                    //       Navigator.of(context).push(MaterialPageRoute(builder:
+                                    //           (BuildContext context) => login()));
+                                    //     })
+
+                                    Text('', style: TextStyle(color: Colors.black)),
+                                    SizedBox(
+                                      width: 20,
+                                    ),
+                                    Icon(
+                                      Icons.chat_bubble_outline,
+                                      color: Colors.grey,
+                                    ),
+                                    Text(
+                                      '',
+                                      style: TextStyle(color: Colors.black),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                          );
                         })),
                   ),
                 ],
@@ -245,7 +269,7 @@ class _RecipieTileState extends State<RecipieTile> {
             // Navigator.push(
             //     context,
             //     MaterialPageRoute(
-            //         builder: (context) => postRecipes(recipes: "recipes")));
+            //         builder: (context) => postRecipes(recipes: title)));
           },
           child: Container(
             margin: EdgeInsets.all(8),

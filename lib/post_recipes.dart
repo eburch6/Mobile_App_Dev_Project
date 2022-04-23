@@ -9,15 +9,15 @@ import 'display_post.dart';
 import 'login.dart';
 
 class postRecipes extends StatelessWidget {
-  postRecipes({
-    required this.recipes,
-  });
+  // postRecipes({
+  //   required this.recipes,
+  // });
 
   final FirebaseFirestore _db = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
   User? current_user = FirebaseAuth.instance.currentUser;
   final _post = TextEditingController();
-  final String recipes;
+  late final String recipes;
 
   @override
   Widget build(BuildContext context) {
