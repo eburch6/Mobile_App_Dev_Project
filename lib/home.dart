@@ -1,10 +1,13 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:final_project/post_recipes.dart';
+import 'package:final_project/rate.dart';
 import 'package:final_project/recipe_model.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:like_button/like_button.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'display_recipes.dart';
@@ -31,7 +34,8 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color(0xff071930),
+        title: Text("Recipe App"),
+        backgroundColor: const Color(0xff213A50),
         actions: <Widget>[
           IconButton(
               icon: const Icon(
@@ -64,23 +68,15 @@ class _HomeState extends State<Home> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   const Text(
-                    "What will you cook today?",
+                    "Search your recipe here...",
                     style: TextStyle(
                         fontSize: 20,
                         color: Colors.white,
                         fontWeight: FontWeight.w400,
                         fontFamily: 'Overpass'),
                   ),
-                  const Text(
-                    "Just Enter Ingredients you have and we will show the best recipe for you",
-                    style: TextStyle(
-                        fontSize: 15,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w300,
-                        fontFamily: 'OverpassRegular'),
-                  ),
                   const SizedBox(
-                    height: 40,
+                    height: 10,
                   ),
                   Container(
                     child: Row(
@@ -108,7 +104,7 @@ class _HomeState extends State<Home> {
                           ),
                         ),
                         const SizedBox(
-                          width: 16,
+                          width: 10,
                         ),
                         InkWell(
                             onTap: () async {
@@ -120,44 +116,43 @@ class _HomeState extends State<Home> {
                                 String url =
                                     "https://api.edamam.com/search?q=${textEditingController.text}&app_id=75862168&app_key=eaa751eb66608b026e8916cd01aa2414";
                                 var response = await http.get(Uri.parse(url));
-                                print(" $response this is response");
+                                // print(" $response this is response");
                                 Map<String, dynamic> jsonData =
                                 jsonDecode(response.body);
-                                print("this is json Data $jsonData");
+                                // print("this is json Data $jsonData");
                                 jsonData["hits"].forEach((element) {
-                                  print(element.toString());
+                                  // print(element.toString());
                                   RecipeModel recipeModel;
                                   recipeModel =
                                       RecipeModel.fromMap(element['recipe']);
                                   recipies.add(recipeModel);
-                                  print(recipeModel.url);
+                                  // print(recipeModel.url);
                                 });
                                 setState(() {
                                   _loading = false;
                                 });
-
-                                print("doing it");
                               } else {
-                                print("not doing it");
+                                print("None");
                               }
                             },
                             child: Container(
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(8),
-                                  gradient: const LinearGradient(
-                                      colors: [
-                                        Color(0xffA2834D),
-                                        Color(0xffBC9A5F)
-                                      ],
-                                      begin: FractionalOffset.topRight,
-                                      end: FractionalOffset.bottomLeft)),
+                              decoration: const BoxDecoration(
+                                  // borderRadius: BorderRadius.circular(8),
+                                  // gradient: LinearGradient(
+                                  //     colors: [
+                                  //       Color(0xffA2834D),
+                                  //       Color(0xffBC9A5F)
+                                  //     ],
+                                  //     begin: FractionalOffset.topRight,
+                                  //     end: FractionalOffset.bottomLeft)
+                              ),
                               padding: const EdgeInsets.all(8),
                               child: Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: const <Widget>[
                                   Icon(
                                       Icons.search,
-                                      size: 18,
+                                      size: 30,
                                       color: Colors.white
                                   ),
                                 ],
@@ -167,7 +162,7 @@ class _HomeState extends State<Home> {
                     ),
                   ),
                   const SizedBox(
-                    height: 30,
+                    height: 20,
                   ),
                   Container(
                     child: GridView(
@@ -185,38 +180,39 @@ class _HomeState extends State<Home> {
                                 url: recipies[index].url,
                               ),
                               footer: GridTileBar(
-                                backgroundColor: Colors.white,
-                                title: Row(
-                                  children: const [
-                                    Icon(
-                                      Icons.favorite_outline,
-                                      color: Colors.grey,
-                                      // product.isFavorite ? Icons.favorite : Icons.favorite_border,
-                                    ),
-                                    // trailing: IconButton(
-                                    //     icon: Icon(
-                                    //       Icons.sentiment_satisfied_alt,
-                                    //       color: Colors.white,
-                                    //     ),
-                                    //     onPressed: () {
-                                    //       Navigator.of(context).push(MaterialPageRoute(builder:
-                                    //           (BuildContext context) => login()));
-                                    //     })
-
-                                    Text('', style: TextStyle(color: Colors.black)),
-                                    SizedBox(
-                                      width: 20,
-                                    ),
-                                    Icon(
-                                      Icons.chat_bubble_outline,
-                                      color: Colors.grey,
-                                    ),
-                                    Text(
-                                      '',
-                                      style: TextStyle(color: Colors.black),
-                                    ),
-                                  ],
+                                backgroundColor: Colors.black54,
+                                leading: LikeButton(
+                                  size: 30,
+                                  // likeCount: 0,
+                                  likeBuilder: (bool like) {
+                                    return const Icon(
+                                      // padding: EdgeInsets.all(4.0),
+                                      // child: Icon(
+                                      Icons.thumb_up,
+                                      color: Colors.red,
+                                    // ),
+                                    );
+                                  },
                                 ),
+                                // leading: IconButton(
+                                //     icon: const Icon(
+                                //       Icons.star,
+                                //       color: Colors.grey,
+                                //     ),
+                                //     onPressed: () {
+                                      // Navigator.of(context).push(MaterialPageRoute(builder:
+                                      //     (BuildContext context) => login()));
+                                //     }
+                                // ),
+                                title: IconButton(
+                                    icon: const Icon(
+                                      Icons.tag_faces,
+                                      color: Colors.grey,
+                                    ),
+                                    onPressed: () {
+                                      Navigator.of(context).push(MaterialPageRoute(builder:
+                                          (BuildContext context) => RatingDialog(recipe_name: "RecipieTile.title")));
+                                    }),
                               ),
                           );
                         })),
@@ -253,7 +249,6 @@ class _RecipieTileState extends State<RecipieTile> {
         GestureDetector(
           onTap: () {
             _launchURL();
-
             // if (kIsWeb) {
             //   _launchURL(widget.url);
             // } else {
@@ -272,7 +267,7 @@ class _RecipieTileState extends State<RecipieTile> {
             //         builder: (context) => postRecipes(recipes: title)));
           },
           child: Container(
-            margin: EdgeInsets.all(8),
+            margin: EdgeInsets.all(5),
             child: Stack(
               children: <Widget>[
                 Image.network(
@@ -286,11 +281,11 @@ class _RecipieTileState extends State<RecipieTile> {
                   alignment: Alignment.bottomLeft,
                   decoration: const BoxDecoration(
                       gradient: LinearGradient(
-                          colors: [Colors.white30, Colors.white],
+                          colors: [Colors.black54, Colors.white],
                           begin: FractionalOffset.centerRight,
                           end: FractionalOffset.centerLeft)),
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(10.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
@@ -299,14 +294,16 @@ class _RecipieTileState extends State<RecipieTile> {
                           style: const TextStyle(
                               fontSize: 13,
                               color: Colors.black54,
-                              fontFamily: 'Overpass'),
+                              // fontFamily: 'Overpass'
+                          ),
                         ),
                         Text(
                           widget.desc,
                           style: const TextStyle(
                               fontSize: 10,
                               color: Colors.black54,
-                              fontFamily: 'OverpassRegular'),
+                              // fontFamily: 'OverpassRegular'
+                          ),
                         )
                       ],
                     ),
@@ -336,7 +333,7 @@ class GradientCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(5.0),
       child: Wrap(
         children: <Widget>[
           Container(
