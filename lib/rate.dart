@@ -28,7 +28,6 @@ class _RatingDialogState extends State<RatingDialog> {
   int _stars = 0;
 
   Widget _buildStar(int starCount) {
-    // int_starts = 0;
     return InkWell(
       child: Icon(
         Icons.star,

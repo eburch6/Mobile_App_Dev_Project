@@ -25,6 +25,7 @@ class postRecipes extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Post Recipes"),
+        backgroundColor: const Color(0xff9e9e9e),
       ),
       body: Center(
         child:

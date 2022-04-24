@@ -12,14 +12,13 @@ class SignUpPage extends StatelessWidget {
   var _email = TextEditingController();
   var _password = TextEditingController();
   var _username = TextEditingController();
-  // var _firstName = TextEditingController();
-  // var _lastName = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           title: Text("Register"),
+          backgroundColor: const Color(0xff9e9e9e),
         ),
         body: Center(
           child: Form(
@@ -39,18 +38,7 @@ class SignUpPage extends StatelessWidget {
                       hintText: "Enter Email",
                     ),
                   ),
-                  // TextFormField(
-                  //   controller: _firstName,
-                  //   decoration: const InputDecoration(
-                  //     hintText: "Enter Your First Name",
-                  //   ),
-                  // ),
-                  // TextFormField(
-                  //   controller: _lastName,
-                  //   decoration: const InputDecoration(
-                  //     hintText: "Enter Your Last Name",
-                  //   ),
-                  // ),
+
                   TextFormField(
                     controller: _password,
                     obscureText: true,

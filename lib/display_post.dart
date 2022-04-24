@@ -132,7 +132,6 @@ class displayPost extends StatelessWidget {
                 .collection('posts')
                 .doc(recipes)
                 .collection(user_id)
-                // . where("recipes", arrayContains: user_id)
                 .snapshots(),
             builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
               if (snapshot.hasError) {
@@ -170,7 +169,6 @@ class displayPost extends StatelessWidget {
     _db.collection("posts")
         .doc(recipes)
         .collection(user_id)
-        // . where(recipes, arrayContains: user_id)
         .snapshots()
         .listen((QuerySnapshot<Map<String, dynamic>> snapshot) {
       snapshot.docs.map((QueryDocumentSnapshot doc) {
