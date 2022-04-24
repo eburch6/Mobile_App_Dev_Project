@@ -1,4 +1,4 @@
-import 'package:final_project/post_recipes.dart';
+import 'package:final_project/home.dart';
 import 'package:final_project/signup.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -11,26 +11,19 @@ class login extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
   var _email = TextEditingController();
   var _password = TextEditingController();
-  var _display = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           title: Text("Login"),
+          backgroundColor: const Color(0xff9e9e9e),
         ),
         body: Center(
           child: Form(
               key: _formKey,
               child: Column(
                 children: [
-                  // TextFormField(
-                  //   controller: _display,
-                  //   validator: (String? value) {},
-                  //   decoration: const InputDecoration(
-                  //     hintText: "Enter User Name",
-                  //   ),
-                  // ),
                   TextFormField(
                     controller: _email,
                     decoration: const InputDecoration(
@@ -56,7 +49,6 @@ class login extends StatelessWidget {
                         if (_formKey.currentState!.validate()) {
                           _login(context);
                         }
-                        // _role(context);
                       },
                       child: const Text("Login")),
                   ElevatedButton(
@@ -67,8 +59,6 @@ class login extends StatelessWidget {
                                 builder: (context) => SignUpPage()));
                       },
                       child: const Text("Register")),
-                  // TextButton(
-                  //     onPressed: () { }, child: const Text("Login with Google")),
                 ],
               )),
         ));
@@ -89,24 +79,6 @@ class login extends StatelessWidget {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => postRecipes(recipes: "recipes")));
+            builder: (context) => Home()));
   }
-
-  // void _profile(context) async{
-  //   User? user = FirebaseAuth.instance.currentUser;
-  //   final DocumentSnapshot snap = await _db
-  //       .collection('users').doc(user!.uid).get();
-  //   var role = snap.get("role");
-  //   if(role == 'USER'){
-  //     Navigator.push(
-  //         context,
-  //         MaterialPageRoute(
-  //             builder: (context) => SignUpPage()));
-  //   } else if (role == 'ADMIN'){
-  //     Navigator.push(
-  //         context,
-  //         MaterialPageRoute(
-  //             builder: (context) => SignUpPage()));
-  //   }
-  // }
 }
